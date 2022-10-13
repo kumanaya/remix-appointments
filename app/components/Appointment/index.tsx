@@ -68,7 +68,7 @@ const Appointments = ({
         overflow="hidden"
       >
         <Box pb="10">
-          <Heading>Appoinments</Heading>
+          <Heading>Appointments</Heading>
         </Box>
         <Box pb="10">
           <Search handleSearch={handleSearch} />
@@ -90,7 +90,7 @@ const Appointments = ({
       overflow="hidden"
     >
       <Box pb="10">
-        <Heading>Appoinments</Heading>
+        <Heading>Appointments</Heading>
       </Box>
       <Box pb="10">
         <Search handleSearch={handleSearch} />
