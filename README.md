@@ -2,7 +2,7 @@
 
 ---
 
-![Untitled](Quaddro%20-%20Challenge%204d3a94c1aee3444995df96ad1b2f5bbf/Untitled.png)
+![Untitled](https://github.com/kumanaya/quaddro-challenge/blob/main/media/Untitled.png?raw=true)
 
 Autor: Daniel Kumanaya
 
