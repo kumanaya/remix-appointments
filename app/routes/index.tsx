@@ -154,7 +154,7 @@ export default function Index() {
       if (haveAppointments && haveAppointments.length > 0) {
         toast({
           title: "Appointment",
-          description: "Have appoinment in this range date",
+          description: "Have appointmentin this range date",
           status: "warning",
           duration: 9000,
           isClosable: true,
