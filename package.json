@@ -30,6 +30,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.37.0",
+    "sort-by-typescript": "^1.2.3",
+    "sort-objects-array": "^1.7.1",
     "yup": "^0.32.11"
   },
   "devDependencies": {

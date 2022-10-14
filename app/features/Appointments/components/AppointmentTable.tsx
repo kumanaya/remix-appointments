@@ -1,3 +1,5 @@
+import type { IAppointment } from "../Appointment.types";
+
 import React, { useState } from "react";
 
 import {
@@ -13,49 +15,49 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import dayjs from "dayjs";
+import { sortBy } from "sort-by-typescript";
 
-import Search from "../Search";
+import AppointmentSearch from "./AppointmentSearch";
 
-interface IAppointmentsProps {
-  data: Array<IAppointments>;
-  handleFilter: (column: string, bool: boolean) => void;
-  handleSearch: (search: string | undefined) => void;
+interface IAppointmentTable {
+  appointments?: IAppointment[];
 }
 
-interface IAppointments {
-  id?: number;
-  title: string;
-  startAt: string;
-  endAt: string;
-}
-
-const Appointments = ({
-  data,
-  handleFilter,
-  handleSearch,
-}: IAppointmentsProps) => {
+const AppointmentTable = ({ appointments }: IAppointmentTable) => {
   const [filter, setFilter] = useState({
     title: false,
     startAt: false,
     endAt: false,
   });
 
-  const filterTitle = () => {
+  const filterTitle = async () => {
+    filter.title
+      ? appointments?.sort(sortBy("title"))
+      : appointments?.sort(sortBy("-title"));
     setFilter({ ...filter, title: !filter.title });
-    handleFilter("title", !filter.title);
   };
 
-  const filterStart = () => {
+  const filterStart = async () => {
+    filter.startAt
+      ? appointments?.sort(sortBy("startAt"))
+      : appointments?.sort(sortBy("-startAt"));
     setFilter({ ...filter, startAt: !filter.startAt });
-    handleFilter("startAt", !filter.startAt);
   };
 
-  const filterEnd = () => {
+  const filterEnd = async () => {
+    filter.endAt
+      ? appointments?.sort(sortBy("endAt"))
+      : appointments?.sort(sortBy("-endAt"));
     setFilter({ ...filter, endAt: !filter.endAt });
-    handleFilter("endAt", !filter.endAt);
   };
 
-  if (data.length === 0) {
+  const handleSearch = (search: string) => {
+    console.log(search);
+    appointments = appointments?.filter((e) => e.title.match(search));
+    console.log(appointments);
+  };
+
+  if (appointments?.length === 0) {
     return (
       <Box
         flex="1"
@@ -69,9 +71,6 @@ const Appointments = ({
       >
         <Box pb="10">
           <Heading>Appointments</Heading>
-        </Box>
-        <Box pb="10">
-          <Search handleSearch={handleSearch} />
         </Box>
         <Text>No appointments</Text>
       </Box>
@@ -93,7 +92,7 @@ const Appointments = ({
         <Heading>Appointments</Heading>
       </Box>
       <Box pb="10">
-        <Search handleSearch={handleSearch} />
+        <AppointmentSearch handleSearch={handleSearch} />
       </Box>
       <TableContainer>
         <Table variant="simple">
@@ -111,7 +110,7 @@ const Appointments = ({
             </Tr>
           </Thead>
           <Tbody>
-            {data?.map((item) => (
+            {appointments?.map((item) => (
               <Tr key={item.id}>
                 <Td>
                   <Text>{item.title}</Text>
@@ -131,4 +130,4 @@ const Appointments = ({
   );
 };
 
-export default Appointments;
+export default AppointmentTable;

@@ -2,13 +2,14 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Input, Text, Box, IconButton } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
+import { Form } from "@remix-run/react";
 import * as yup from "yup";
 
-interface ISearch {
-  handleSearch: (search: string | undefined) => any;
+interface IAppointmentSearch {
+  handleSearch: (search: string) => any;
 }
 
-const Search = ({ handleSearch }: ISearch) => {
+const AppointmentSearch = ({ handleSearch }: IAppointmentSearch) => {
   const formSchema = yup.object({
     search: yup.string(),
   });
@@ -17,23 +18,19 @@ const Search = ({ handleSearch }: ISearch) => {
 
   const {
     register,
-    handleSubmit,
     formState: { errors },
   } = useForm<form>({
     resolver: yupResolver(formSchema),
   });
 
-  const onSubmit = handleSubmit((data) => {
-    handleSearch(data.search);
-  });
-
   return (
-    <form className="schedule" onSubmit={onSubmit}>
+    <Form action={"/appointments"}>
       <Box display="flex">
         <Box>
           <Text>Search:</Text>
           <Input
             type="search"
+            title="search"
             {...register("search")}
             isInvalid={errors.search && true}
             placeholder={errors.search?.message}
@@ -47,8 +44,8 @@ const Search = ({ handleSearch }: ISearch) => {
           />
         </Box>
       </Box>
-    </form>
+    </Form>
   );
 };
 
-export default Search;
+export default AppointmentSearch;

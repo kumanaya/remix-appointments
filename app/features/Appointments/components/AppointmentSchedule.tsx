@@ -1,21 +1,17 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Input, Text, Box, Heading, useToast } from "@chakra-ui/react";
+import { Form } from "@remix-run/react";
 import dayjs from "dayjs";
 import * as yup from "yup";
 
-interface IAppointments {
-  id?: number;
-  title: string;
-  startAt: string;
-  endAt: string;
+import type { ActionData } from "~/routes/appointments";
+
+interface IAppointmentSchedule {
+  actionData?: ActionData;
 }
 
-interface ScheduleProps {
-  handleInsert: (data: IAppointments) => any;
-}
-
-const Schedule = ({ handleInsert }: ScheduleProps) => {
+const AppointmentSchedule = ({ actionData }: IAppointmentSchedule) => {
   const toast = useToast();
 
   const formSchema = yup.object({
@@ -31,21 +27,10 @@ const Schedule = ({ handleInsert }: ScheduleProps) => {
 
   const {
     register,
-    handleSubmit,
     getValues,
     formState: { errors },
   } = useForm<form>({
     resolver: yupResolver(formSchema),
-  });
-
-  const onSubmit = handleSubmit((data) => {
-    const object = {
-      title: data.title,
-      startAt: dayjs(data.startAt).format(),
-      endAt: dayjs(data.endAt).format(),
-    };
-
-    handleInsert(object);
   });
 
   function validateDate() {
@@ -77,7 +62,7 @@ const Schedule = ({ handleInsert }: ScheduleProps) => {
       <Box pb="10">
         <Heading>Schedule</Heading>
       </Box>
-      <form className="schedule" onSubmit={onSubmit}>
+      <Form method="post">
         <Box pb="4">
           <Text fontSize="md">Title:</Text>
           <Input
@@ -107,10 +92,11 @@ const Schedule = ({ handleInsert }: ScheduleProps) => {
             placeholder={errors.endAt?.message}
           />
         </Box>
+        <Text>{actionData?.errors?.endAt ?? ""}</Text>
         <Input type="submit" value="Save" />
-      </form>
+      </Form>
     </Box>
   );
 };
 
-export default Schedule;
+export default AppointmentSchedule;
