@@ -1,19 +1,16 @@
-# Quaddro - Challenge
+# Remix - Appointments
 
 ---
 
 ![Untitled](https://github.com/kumanaya/quaddro-challenge/blob/main/media/banner.png?raw=true)
 
-Autor: Daniel Kumanaya
-
-### Testar a aplicação
+### Running:
 
 <aside>
-⚠️ Para funcionar devidamente, é necessário ter os tokens do supabase e adicionar o arquivo .env na raiz do projeto.
-
+⚠️ To work correctly, it is necessary to have the supabase tokens and add the .env file in the project root.
 </aside>
 
-Para rodar a aplicação em ambiente de desenvolvimento, basta digitar:
+To run the application in the development environment, just type:
 
 ```bash
 # Step 1
